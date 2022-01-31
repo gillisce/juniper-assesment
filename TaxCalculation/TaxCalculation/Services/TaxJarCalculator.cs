@@ -25,23 +25,28 @@ namespace TaxCalculation.Services
 
 
         public async Task<TaxRateObject> GetTaxRateByLocation(BasicTaxRateRequest _input)
-        {
-            var taxJarRequestObject = _mapper.Map<TaxRate>(_input);
+		{
+			try
+			{
+                var taxJarRequestObject = _mapper.Map<TaxRate>(_input);
 
-            //Instead of writing out the whole 
-            //using (var client = newHttpClient())
-            //{
-            //    client.BaseAddress = newUri("TaxJarURLHERE");
-            //    client.DefaultRequestHeaders.Accept.Clear();
-            //    client.DefaultRequestHeaders.Accept.Add(newMediaTypeWithQualityHeaderValue("application/json"));
-            //    //GET Method
-            //    HttpResponseMessage response = awaitclient.GetAsync("APIRoute");
-            //}
-            //Since that can bog down the code, instead I will be using Refit, which allows me to spin up an interface that under the hood will do all that config work for an HTTPClient. This helps ensure we always dispose and allows for cleaner Dependency Injection
-            
-            //Refit way to call the API Endpoint of tax jar
-            var response = await _taxJar.GetTaxRate(taxJarRequestObject.Zip, taxJarRequestObject.Country, taxJarRequestObject.City);
-            return _mapper.Map<TaxRateObject>(response);
+                var extraQueryBuilder = "?";
+                extraQueryBuilder += !string.IsNullOrEmpty(taxJarRequestObject.Country) ? $"country={taxJarRequestObject.Country}&" : "";
+                extraQueryBuilder += !string.IsNullOrEmpty(taxJarRequestObject.City) ? $"city={taxJarRequestObject.City}&" : "";
+                extraQueryBuilder += !string.IsNullOrEmpty(taxJarRequestObject.Street) ? $"state={taxJarRequestObject.State}&" : "";
+                extraQueryBuilder += !string.IsNullOrEmpty(taxJarRequestObject.Street) ? $"street={taxJarRequestObject.Street}&" : "";
+
+                //Refit way to call the API Endpoint of tax jar
+                var response = await _taxJar.GetTaxRate(taxJarRequestObject.Zip, extraQueryBuilder);
+               
+                return _mapper.Map<TaxRateObject>(response);
+            }
+            catch(Exception ex)
+			{
+                var e = ex.Message;
+                return new TaxRateObject();
+			}
+           
         }
 
 

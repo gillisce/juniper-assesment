@@ -10,9 +10,11 @@ namespace TaxCalculation.Abstractions
 {
     public interface ITaxJarApi
     {
-        [Post("/v2/rates/{zipCode}?country={country}&city={city}")]
-        [Headers("Authorization: Bearer", "Content-Type: application/json")]
-        public Task<TaxRate> GetTaxRate(string zipCode, string country, string city);
+        //[Get("/rates/{zipCode}?country={country}&city={city}")]
+        [QueryUriFormat(UriFormat.Unescaped)]
+        [Get("/rates/{zipCode}{additionalParams}")]
+        [Headers("Authorization: Token", "Content-Type: application/json")]
+        public Task<TaxJarRateResponseObject> GetTaxRate(string zipCode, string additionalParams);
         
         //[Post("/api/document/create")]
         //[Headers("Authorization: Bearer", "Content-Type: application/json")]

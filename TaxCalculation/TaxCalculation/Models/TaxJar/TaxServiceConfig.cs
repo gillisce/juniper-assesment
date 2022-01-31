@@ -8,7 +8,7 @@ namespace TaxCalculation.Models.TaxJar
 {
     public class TaxServiceConfig
     {
-        public string TaxJarKey { get; set; } = "5da2f821eee4035db4771edab942a4cc";
-        public string TaxJarBaseUrl { get; set; } = "https://api.taxjar.com";
+        public string TaxJarKey { get; set; } = "token=\"5da2f821eee4035db4771edab942a4cc\"";
+        public string TaxJarBaseUrl { get; set; } = "https://api.taxjar.com/v2";
     }
 }

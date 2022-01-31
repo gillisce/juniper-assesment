@@ -19,11 +19,16 @@ namespace TaxCalculation.Models
 
     public class TaxRateObject
     {
-        public decimal? CountryRate { get; set; }
-        public decimal? StateRate { get; set; }
-        public decimal? CityRate { get; set; }
-        public decimal? CombinedDistrictRate { get; set; }
-        public decimal? CominedRate { get; set; }
+        public double CountryRate { get; set; }
+        public double StateRate { get; set; }
+        public double CityRate { get; set; }
+        public double CombinedDistrictRate { get; set; }
+        public double CombinedRate { get; set; }
+        public double DistanceSaleThreshold { get; set; }
+        public double ParkingRate { get; set; }
+        public double ReducedRate { get; set; }
+        public double StandardRate { get; set; }
+        public double SuperReducedRate { get; set; }
     }
 
 }

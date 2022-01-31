@@ -23,12 +23,18 @@ namespace TaxCalculation.Mappings
         public TaxJarRateResponseMapping()
         {
 
-            CreateMap<TaxRateResponse, TaxRateObject>()
-                 .ForMember(dest => dest.CityRate, src => src.MapFrom(o => decimal.Parse(o.CityRate, 0)))
-                 .ForMember(dest => dest.CountryRate, src => src.MapFrom(o => decimal.Parse(o.CountryRate, 0)))
-                 .ForMember(dest => dest.StateRate, src => src.MapFrom(o => decimal.Parse(o.StateRate, 0)))
-                 .ForMember(dest => dest.CombinedDistrictRate, src => src.MapFrom(o => decimal.Parse(o.CombinedDistrictRate, 0)))
-                 .ForMember(dest => dest.CominedRate, src => src.MapFrom(o => decimal.Parse(o.CominedRate, 0)));        }
+            CreateMap<TaxJarRateResponseObject, TaxRateObject>()
+                 .ForMember(dest => dest.CityRate, src => src.MapFrom(o => Convert.ToDouble(o.rate.city_rate)))
+                 .ForMember(dest => dest.CountryRate, src => src.MapFrom(o => Convert.ToDouble(o.rate.country_rate)))
+                 .ForMember(dest => dest.StateRate, src => src.MapFrom(o => Convert.ToDouble(o.rate.state_rate)))
+                 .ForMember(dest => dest.CombinedDistrictRate, src => src.MapFrom(o => Convert.ToDouble(o.rate.combined_district_rate)))
+                 .ForMember(dest => dest.CombinedRate, src => src.MapFrom(o => Convert.ToDouble(o.rate.combined_rate)))
+                 .ForMember(dest => dest.DistanceSaleThreshold, src => src.MapFrom(o => Convert.ToDouble(o.rate.distance_sale_threshold)))
+                 .ForMember(dest => dest.ParkingRate, src => src.MapFrom(o => Convert.ToDouble(o.rate.parking_rate)))
+                 .ForMember(dest => dest.ReducedRate, src => src.MapFrom(o => Convert.ToDouble(o.rate.reduced_rate)))
+                 .ForMember(dest => dest.StandardRate, src => src.MapFrom(o => Convert.ToDouble(o.rate.standard_rate)))
+                 .ForMember(dest => dest.SuperReducedRate, src => src.MapFrom(o => Convert.ToDouble(o.rate.super_reduced_rate)));        
+        }
 
     }
 
