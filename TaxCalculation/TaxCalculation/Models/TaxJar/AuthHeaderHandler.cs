@@ -22,7 +22,6 @@ namespace TaxCalculation.Models.TaxJar
             {
                 request.Headers.Authorization = new AuthenticationHeaderValue(auth.Scheme, _config.TaxJarKey);
             }
-            //request.Headers.Authorization = new AuthenticationHeaderValue("Token", _config.TaxJarKey);
             return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
         }
     }

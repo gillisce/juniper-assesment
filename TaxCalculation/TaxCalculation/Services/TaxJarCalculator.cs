@@ -49,7 +49,13 @@ namespace TaxCalculation.Services
            
         }
 
-
+        public async Task<BasicTaxOnOrderResponse> GetTaxOnOrder(BasicTaxOnOrderRequest _input, GenericLineItems _orderLineItems, NexusAddress extraAdresses)
+		{
+			try
+			{
+                var taxJarRequestObject = _mapper.Map<TaxJarBodyForOrder>(_input);
+			}
+		}
 
     }
 }
