@@ -40,8 +40,8 @@ namespace TaxCalculation.Services
             //Since that can bog down the code, instead I will be using Refit, which allows me to spin up an interface that under the hood will do all that config work for an HTTPClient. This helps ensure we always dispose and allows for cleaner Dependency Injection
             
             //Refit way to call the API Endpoint of tax jar
-            var response = _taxJar.GetTaxRate(taxJarRequestObject.Zip, taxJarRequestObject.Country, taxJarRequestObject.City);
-            return new TaxRateObject();
+            var response = await _taxJar.GetTaxRate(taxJarRequestObject.Zip, taxJarRequestObject.Country, taxJarRequestObject.City);
+            return _mapper.Map<TaxRateObject>(response);
         }
 
 

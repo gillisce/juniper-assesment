@@ -8,7 +8,6 @@ namespace TaxCalculation.Models.TaxJar
     public class AuthHeaderHandler : DelegatingHandler
     {
         public readonly TaxServiceConfig _config;
-        //public readonly 
 
         public AuthHeaderHandler(TaxServiceConfig config)
         {

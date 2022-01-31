@@ -24,7 +24,8 @@ namespace TaxCalculation.Middleware
                 .AddHttpMessageHandler<AuthHeaderHandler>();
 
             services.AddAutoMapper(
-                typeof(Mappings.TaxJarRateMapping));
+                typeof(Mappings.TaxJarRateMapping),
+                typeof(Mappings.TaxJarRateResponseMapping));
             return services;
         }
     }
