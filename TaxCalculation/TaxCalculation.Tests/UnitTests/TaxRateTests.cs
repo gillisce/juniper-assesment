@@ -19,10 +19,10 @@ namespace TaxCalculation.Tests.UnitTests
     [TestClass]
     public class TaxRateTests
     {
-        private readonly TaxServiceConfig taxConfig = new TaxServiceConfig();
         private readonly ITaxService _taxService;
         public TaxRateTests()
-        { 
+        {
+            var taxConfig = new TaxServiceConfig();
             var taxJarApi = RestService.For<ITaxJarApi>(new HttpClient(new AuthHeaderHandler(taxConfig))
             {
                 BaseAddress = new Uri(taxConfig.TaxJarBaseUrl)

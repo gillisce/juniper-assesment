@@ -13,5 +13,6 @@ namespace TaxCalculation.Abstractions
         Task<TaxRateObject> GetTaxRateByLocation(BasicTaxRateRequest Input);
 
         //Calculate Taxes For Order
+        Task<BasicTaxOnOrderResponse> GetTaxOnOrder(BasicTaxOnOrderRequest _input, List<GenericLineItems> _orderLineItems, List<GenericNexusAddress> _extraAdresses);
     }
 }

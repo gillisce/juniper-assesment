@@ -38,6 +38,9 @@ namespace TaxCalculation.Models
 		public string Zip { get; set; }
 	}
 
+
+	//We could map more fields if the requirments call for it.
+	//For the time being I just grabbed a handful of the ones that seemed generic enough that it would come from any service
 	public class BasicTaxOnOrderResponse
 	{
 		public double AmountToCollect { get; set; }

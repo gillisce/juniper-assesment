@@ -15,10 +15,16 @@ namespace TaxCalculation.Abstractions
         [Get("/rates/{zipCode}{additionalParams}")]
         [Headers("Authorization: Token", "Content-Type: application/json")]
         public Task<TaxJarRateResponseObject> GetTaxRate(string zipCode, string additionalParams);
+
+        [Post("/taxes")]
+        [Headers("Authorization: Token", "Content-Type: application/json")]
+        public Task<TaxOnOrderResponseObject> GetTaxOnOrder([Body]TaxJarBodyForOrder body);
         
-        //[Post("/api/document/create")]
-        //[Headers("Authorization: Bearer", "Content-Type: application/json")]
-        //public Task<HttpStatusCode> CreateDocument([Body] string docinfo);
+        [Post("/taxes")]
+        [Headers("Authorization: Token", "Content-Type: application/json")]
+        public Task<TaxOnOrderResponseObject> GetTaxOnOrderV2([Body]string body);
+       // public Task<string> GetTaxOnOrderV3([Body]string body);
+        //public Task<TaxOnOrderResponseObject> GetTaxOnOrder([Body] string body);
 
     }
 }

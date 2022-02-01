@@ -27,8 +27,23 @@ namespace TaxCalculation.Mappings
 				.ForMember(dest => dest.amount, src => src.MapFrom(o => o.Amount))
 				.ForMember(dest => dest.shipping, src => src.MapFrom(o => o.Shipping))
 				;
-			//CreateMap<GenericLineItems, TaxJarBodyForOrder>();
-			//CreateMap<GenericNexusAddress, TaxJarBodyForOrder>();
+		}
+
+	}
+
+	public class TaxJarCalculationResponseMapping : Profile
+	{
+		public TaxJarCalculationResponseMapping()
+        {
+			CreateMap<TaxOnOrderResponseObject, BasicTaxOnOrderResponse>()
+			.ForMember(dest => dest.AmountToCollect, src => src.MapFrom(o => o.tax.amount_to_collect))
+			.ForMember(dest => dest.OrderTotal, src => src.MapFrom(o => o.tax.order_total_amount))
+			.ForMember(dest => dest.Shipping, src => src.MapFrom(o => o.tax.shipping))
+			.ForMember(dest => dest.TaxableAmount, src => src.MapFrom(o => o.tax.taxable_amount))
+			.ForMember(dest => dest.TaxRate, src => src.MapFrom(o => o.tax.rate))
+			.ForMember(dest => dest.TaxSource, src => src.MapFrom(o => o.tax.tax_source));
+
+
 		}
 	}
 }
