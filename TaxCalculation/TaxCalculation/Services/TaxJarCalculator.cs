@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using TaxCalculation.Abstractions;
@@ -55,12 +56,14 @@ namespace TaxCalculation.Services
 		{
 			try
 			{
-                var taxJarRequestObject = _mapper.Map<TaxJarBodyForOrder>(_input);
+                var taxJarBodyForOrder = _mapper.Map<TaxJarBodyForOrder>(_input);
+               
                 if (_orderLineItems.Any() && _orderLineItems.Count > 0)
                 {
+                    taxJarBodyForOrder.line_items = new List<LineItems>();
                     _orderLineItems.ForEach(ol =>
                     {
-                        taxJarRequestObject.line_items.Add(new LineItems()
+                        taxJarBodyForOrder.line_items.Add(new LineItems()
                         {
                             product_tax_code = ol.TaxCode,
                             quantity = ol.Quantity,
@@ -68,24 +71,30 @@ namespace TaxCalculation.Services
                         });
                     });
                 }
-
-                //if (_extraAdresses.Any() && _extraAdresses.Count > 0)
-                //{
-                //    _extraAdresses.ForEach(ea =>
-                //    {
-                //        taxJarRequestObject.nexus_addresses.Add(new NexusAddress()
-                //        {
-                //            country = ea.Country,
-                //            state = ea.State,
-                //            zip = ea.Zip
-                //        });
-                //    });
-                //}
-
+                if (_extraAdresses.Any() && _extraAdresses.Count > 0)
+                {
+                    taxJarBodyForOrder.nexus_addresses = new List<NexusAddress>();
+                    _extraAdresses.ForEach(ea =>
+                    {
+                        taxJarBodyForOrder.nexus_addresses.Add(new NexusAddress()
+                        {
+                            country = ea.Country,
+                            state = ea.State,
+                            zip = ea.Zip
+                        });
+                    });
+                }
+                //Refit is allowing me to replace this block of code with the interface, allowing even easier DI, and consistent calls to an API
+                    //using var client = new HttpClient();
+                    //client.BaseAddress = new Uri("https://api.taxjar.com/v2");
+                    //client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Token", "token =\"5da2f821eee4035db4771edab942a4cc\"");
+                    //var json = JsonConvert.SerializeObject(taxJarRequestObject);
+                    //var data = new StringContent(json, Encoding.UTF8, "application/json");
+                    //var response = await client.PostAsync("/taxes", data);
                 //Refit interface call to the External API
-                var serial = JsonConvert.SerializeObject(taxJarRequestObject);
-                 var response = await _taxJar.GetTaxOnOrderV2(serial);
-                //var response = await _taxJar.GetTaxOnOrder(JsonConvert.SerializeObject(taxJarRequestObject));
+
+                var serial = JsonConvert.SerializeObject(taxJarBodyForOrder);
+                var response = await _taxJar.GetTaxOnOrder(taxJarBodyForOrder);
                 return _mapper.Map<BasicTaxOnOrderResponse>(response);
 
 			}catch(Exception ex)

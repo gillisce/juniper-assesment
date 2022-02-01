@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,8 +21,8 @@ namespace TaxCalculation.Models.TaxJar
 		public string to_city { get; set; }
 		public double amount { get; set; }
 		public double shipping { get; set; }
-		public List<LineItems> line_items { get; set; } = new List<LineItems>();
-		//public List<NexusAddress> nexus_addresses { get; set; } = new List<NexusAddress>();
+		public List<LineItems> line_items { get; set; }
+		public List<NexusAddress> nexus_addresses { get; set; } = new List<NexusAddress>();
 	}
 
 
@@ -39,6 +40,7 @@ namespace TaxCalculation.Models.TaxJar
 		public string zip { get; set; }
 	}
 
+    
     public class LineItem
     {
         public double city_amount { get; set; }
@@ -87,7 +89,7 @@ namespace TaxCalculation.Models.TaxJar
         public double county_tax_collectable { get; set; }
         public double county_tax_rate { get; set; }
         public double county_taxable_amount { get; set; }
-        public List<LineItem> line_items { get; set; } = new List<LineItem>();
+        public List<LineItem> line_items { get; set; }
         public Shipping shipping { get; set; }
         public double special_district_tax_collectable { get; set; }
         public double special_district_taxable_amount { get; set; }
@@ -110,17 +112,16 @@ namespace TaxCalculation.Models.TaxJar
     public class Tax
     {
         public double amount_to_collect { get; set; }
-        //public Breakdown breakdown { get; set; }
+        public Breakdown breakdown { get; set; }
         public bool freight_taxable { get; set; }
         public bool has_nexus { get; set; }
-        //public Jurisdictions jurisdictions { get; set; }
+        public Jurisdictions jurisdictions { get; set; }
         public double order_total_amount { get; set; }
         public double rate { get; set; }
         public double shipping { get; set; }
         public string tax_source { get; set; }
         public double taxable_amount { get; set; }
     }
-
     public class TaxOnOrderResponseObject
     {
         public Tax tax { get; set; }

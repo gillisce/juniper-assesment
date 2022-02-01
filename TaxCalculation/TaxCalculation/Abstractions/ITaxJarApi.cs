@@ -22,8 +22,7 @@ namespace TaxCalculation.Abstractions
         
         [Post("/taxes")]
         [Headers("Authorization: Token", "Content-Type: application/json")]
-        public Task<TaxOnOrderResponseObject> GetTaxOnOrderV2([Body]string body);
-       // public Task<string> GetTaxOnOrderV3([Body]string body);
+        public Task<ApiResponse<string>> GetTaxOnOrderV2(string body);
         //public Task<TaxOnOrderResponseObject> GetTaxOnOrder([Body] string body);
 
     }

@@ -41,7 +41,8 @@ namespace TaxCalculation.Mappings
 			.ForMember(dest => dest.Shipping, src => src.MapFrom(o => o.tax.shipping))
 			.ForMember(dest => dest.TaxableAmount, src => src.MapFrom(o => o.tax.taxable_amount))
 			.ForMember(dest => dest.TaxRate, src => src.MapFrom(o => o.tax.rate))
-			.ForMember(dest => dest.TaxSource, src => src.MapFrom(o => o.tax.tax_source));
+			.ForMember(dest => dest.TaxSource, src => src.MapFrom(o => o.tax.tax_source))
+			;
 
 
 		}
